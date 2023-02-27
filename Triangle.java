@@ -266,6 +266,7 @@ public class Triangle {
 		//	Geographics.triangulate();
 		//} catch (MathematicalException ME) {
 		//	System.err.println("Cannot triangulate" + ME);
+		//  System.err.println("Last Known Coordinates, Velocity, Direction :: " + coords + velocity + direction);
 		//} finally {
 		//	Geographics.retriangulate();
 		//}
