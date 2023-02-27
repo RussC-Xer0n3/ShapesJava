@@ -262,6 +262,14 @@ public class Triangle {
 		
 		/*RETRIANGULATION*/
 		
+		//try{
+		//	Geographics.triangulate();
+		//} catch (MathematicalException ME) {
+		//	System.err.println("Cannot triangulate" + ME);
+		//} finally {
+		//	Geographics.retriangulate();
+		//}
+		
 		//Set my message coords and lkl and lkv
 		//double x = coords.getX();
 		//double coords.getZ();
