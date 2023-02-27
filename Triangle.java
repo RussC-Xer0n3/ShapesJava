@@ -1,6 +1,6 @@
 package ShapesJava;
 
-import Coordinates.Coordinates;
+//import Coordinates.Coordinates;
 
 public class Triangle {
 	
@@ -82,10 +82,6 @@ public class Triangle {
 		}
 		
 		//FOR UNKNOWN ANGLES
-		double aa = sin_A / A;
-		double hh = sin_H / H;
-		double oo = sin_O / O;
-		
 		
 		//Reference: https://mathsisfun.com/algebra/trig-sine-law.html
 		if (angle_sum() == false) {
@@ -262,14 +258,14 @@ public class Triangle {
 	 */
 	public static void AAA() {
 		
-		Coordinates coords = new Coordinates();
+		//Coordinates coords = new Coordinates();
 		
 		/*RETRIANGULATION*/
 		
 		//Set my message coords and lkl and lkv
-		coords.getX();
-		coords.getZ();
-		coords.getY();
+		//double x = coords.getX();
+		//double coords.getZ();
+		//coords.getY();
 		
 		//Request permissions message
 		
@@ -436,7 +432,7 @@ public class Triangle {
 		if (adjacent == 0 && opposite == 0 && hypotenuse == 0) {
 			//Force the error because we know all are empty
 			try {
-				double test2 = adjacent / opposite / hypotenuse;
+				adjacent /= opposite / hypotenuse;
 			} catch (ArithmeticException A) {
 				System.err.println("Cannot accept 0 because cannot create triangle, need at least two measurements: " + A);
 			} finally { solve(); }
