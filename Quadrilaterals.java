@@ -21,7 +21,17 @@ public class Quadrilaterals {
 	private static double bottom_left_angle;
 	private static double top_right_angle;
 	private static double bottom_right_angle;
+
+	private static double top_left_angle_x;
+	private static double top_left_angle_y;
+	private static double bottom_right_angle_x;
+	private static double bottom_right_angle_y;
+	private static double top_right_angle_x;
+	private static double top_right_angle_y;
+	private static double bottom_left_angle_x;
 	
+
+	private static double bottom_left_angle_y;
 	/**
 	 * Checks if the values entered match up to the rules of a quadrilateral
 	 * @return
@@ -347,6 +357,20 @@ public class Quadrilaterals {
 	}
 	
 	/**
+	 * The halfway point between the top and bottom of the trapezium
+	 * @return
+	 */
+	public static double trapezium_median() {
+		double median = 0;
+		
+		if (quadrilateral() == true && trapezium() == true) {
+			median = top + bottom / 2;
+		}
+		
+		return median;
+	}
+	
+	/**
 	 * Provides the area of the trapezium after running the quadrilateral and square checks
 	 * @return
 	 */
@@ -356,6 +380,8 @@ public class Quadrilaterals {
 		
 		if (quadrilateral() == true && trapezium() == true) {
 			area = Math.pow((top + bottom / 2), height); 
+		} else if (quadrilateral() == true && trapezium() == true)  {
+			area = trapezium_median() * height;
 		}
 		
 		return area;
@@ -370,7 +396,13 @@ public class Quadrilaterals {
 		double perimeter = 0;
 		
 		if (quadrilateral() == true && trapezium() == true) {
-			perimeter = top+bottom+left+right;
+			try {
+				perimeter = top + bottom + left + right;
+			} catch (ArithmeticException A) {
+				System.err.println(A);
+			} finally {
+				System.out.println("Make sure all of the sides are equal and have a size allocated");
+			}
 		}
 		
 		return perimeter;
@@ -392,6 +424,106 @@ public class Quadrilaterals {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Runs a few checks for rhombus status and then calculates the area
+	 * using one of several methods depending on variable data allocation
+	 *  
+	 * @return
+	 */
+	public static double rhombus_area() {
+		
+		double area = 0;
+
+		double p = 0;
+		
+		double[] top_left_angle_coords = new double[2];
+		double[] bottom_right_angle_coords = new double[2];
+
+		double q = 0;
+		
+		double[] top_right_angle_coords = new double[2];
+		double[] bottom_left_angle_coords = new double[2];
+		
+		
+		if (rhombus() == true && opposite() == true && parallel() == true && height != 0) {
+			area = height * top;
+		} else if (rhombus() == true && opposite() == true && parallel() == true && height != 0){
+			area = height * bottom;
+		} else if (rhombus() == true && opposite() == true && parallel() == true && width != 0){
+			area = width * left;
+		} else if (rhombus() == true && opposite() == true && parallel() == true && height != 0){
+			area = width * right;
+		} else if (rhombus() == true && opposite() == true && parallel() == true) {
+			area = Math.pow(left, 2) * top_left_angle; 
+		} else if (rhombus() == true && opposite() == true && parallel() == true) {
+			area = Math.pow(top, 2) * top_right_angle;
+		} else if (rhombus() == true && opposite() == true && parallel() == true) {
+			area = Math.pow(right, 2) * bottom_right_angle;
+		} else if (rhombus() == true && opposite() == true && parallel() == true) {
+			area = Math.pow(bottom, 2) * bottom_left_angle;
+		} else if (rhombus() == true && opposite() == true && parallel() == true && Distance.getPoint_2() != null && Distance.getPoint_2b() != null ){
+				
+			if (top_left_angle_x > 0 && top_left_angle_y > 0 && bottom_right_angle_x > 0 && bottom_right_angle_y > 0) {
+			
+				top_left_angle_coords[0] = top_left_angle_x;
+				top_left_angle_coords[1] = top_left_angle_y;
+				
+				bottom_right_angle_coords[0] = bottom_right_angle_x;
+				bottom_right_angle_coords[1] = bottom_right_angle_y;
+				
+				Distance.setPoint_2(top_left_angle_coords);
+				Distance.setPoint_2b(bottom_right_angle_coords);
+				
+				p = Distance.two_d_distance();
+			}
+			
+			if (top_right_angle_x > 0 && top_right_angle_y > 0 && bottom_left_angle_x > 0 && bottom_left_angle_y > 0) {
+				top_right_angle_coords[0] = top_right_angle_x;
+				top_right_angle_coords[1] = top_right_angle_y;
+				
+				bottom_left_angle_coords[0] = bottom_left_angle_x;
+				bottom_left_angle_coords[1] = bottom_left_angle_y;
+				
+				Distance.setPoint_2(top_right_angle_coords);
+				Distance.setPoint_2b(bottom_left_angle_coords);
+				
+				q = Distance.two_d_distance();
+			}
+			
+			area = (p * q) / 2;
+		}
+		
+		return area;
+	}
+	
+	/**
+	 * Runs a check for rhombus status and then calculates the perimeter
+	 * @return
+	 */
+	public static double rhombus_perimeter() {
+		double perimeter = 0;
+		
+		if (rhombus() == true) {
+			try {
+				perimeter = top + bottom + left + right;
+			} catch (ArithmeticException A) {
+				System.err.println(A);
+			} finally {
+				System.out.println("Make sure all of the sides are equal and have a size allocated, or allocate a value to just top");
+			}
+		} else if (rhombus() == true && top != 0) {
+			try {
+				perimeter = Math.pow(top, 4);
+			} catch (ArithmeticException A) {
+				System.err.println(A);
+			} finally {
+				System.out.println("Make sure top has a size allocated, or all of the sides are equal and have a size allocated");
+			}
+		}
+		
+		return perimeter;
 	}
 	
 	
@@ -469,4 +601,67 @@ public class Quadrilaterals {
 		Quadrilaterals.bottom_right_angle = bottom_right_angle;
 	}
 	
+	public static double getTop_left_angle_x() {
+		return top_left_angle_x;
+	}
+
+	public static void setTop_left_angle_x(double top_left_angle_x) {
+		Quadrilaterals.top_left_angle_x = top_left_angle_x;
+	}
+
+	public static double getTop_left_angle_y() {
+		return top_left_angle_y;
+	}
+
+	public static void setTop_left_angle_y(double top_left_angle_y) {
+		Quadrilaterals.top_left_angle_y = top_left_angle_y;
+	}
+
+	public static double getBottom_right_angle_x() {
+		return bottom_right_angle_x;
+	}
+
+	public static void setBottom_right_angle_x(double bottom_right_angle_x) {
+		Quadrilaterals.bottom_right_angle_x = bottom_right_angle_x;
+	}
+
+	public static double getBottom_right_angle_y() {
+		return bottom_right_angle_y;
+	}
+
+	public static void setBottom_right_angle_y(double bottom_right_angle_y) {
+		Quadrilaterals.bottom_right_angle_y = bottom_right_angle_y;
+	}
+
+	public static double getTop_right_angle_x() {
+		return top_right_angle_x;
+	}
+
+	public static void setTop_right_angle_x(double top_right_angle_x) {
+		Quadrilaterals.top_right_angle_x = top_right_angle_x;
+	}
+
+	public static double getTop_right_angle_y() {
+		return top_right_angle_y;
+	}
+
+	public static void setTop_right_angle_y(double top_right_angle_y) {
+		Quadrilaterals.top_right_angle_y = top_right_angle_y;
+	}
+
+	public static double getBottom_left_angle_x() {
+		return bottom_left_angle_x;
+	}
+
+	public static void setBottom_left_angle_x(double bottom_left_angle_x) {
+		Quadrilaterals.bottom_left_angle_x = bottom_left_angle_x;
+	}
+
+	public static double getBottom_left_angle_y() {
+		return bottom_left_angle_y;
+	}
+
+	public static void setBottom_left_angle_y(double bottom_left_angle_y) {
+		Quadrilaterals.bottom_left_angle_y = bottom_left_angle_y;
+	}
 }
